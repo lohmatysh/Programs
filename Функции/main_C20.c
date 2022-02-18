@@ -10,18 +10,16 @@ int main(void) {
 
 int count(char a) {
     int i = 0;
-    int j = 0;
-    while (a != '.' && a != EOF) {
+    while (a != '.' && a != EOF && i >= 0) {
         scanf("%1c", &a);
         if (a == 40) { 
-            ++i; 
-            /* printf("%d %d\n", i, b); */
+            ++i;
         } 
         else if (a == 41) {
-            ++j;
+            --i;
         }
     }
-    if (i == j) {
+    if (i == 0) {
         printf("YES");
     }
     else {
