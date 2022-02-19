@@ -5,14 +5,19 @@
 int rec(int n, int i, int sum);
 
 int main() {
-    int n = 0, i = 0, sum = 0, sum_all = 0;
+    int n = 0, i = 1, sum = 0, sum_all = 0;
     scanf("%d", &n);
     sum_all = rec(n, i, sum);
-    printf("%d", sum_all);
+    printf("%d\n", sum_all);
     return 0;
 } 
 
 int rec(int n, int i, int sum) {
-
-    return 0;
+    if (i > n){
+        return sum;
+    }
+    sum = sum + i;
+    i++;
+    // printf("i = %d sum = %d\n", i, sum);
+    rec(n, i, sum);
 }
