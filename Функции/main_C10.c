@@ -10,12 +10,12 @@ int main () {
 } 
 
 int simple(int a) {
-    uint32_t n, i=2;
+    uint32_t n, i = 2;
     scanf("%" PRIu32 , &n);
-    while(i<=n) {
-        if(n%i == 0) {
+    while(i <= n) {
+        if(n % i == 0) {
             printf("%" PRIu32 " ",i);
-            n/=i;
+            n /= i;
         } 
         else {
             i++;
