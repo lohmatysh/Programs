@@ -4,7 +4,7 @@
 
 int main() {
     int array [10] = {0};
-    int num_max_1 = -1, num_max_2 = -1;
+    int num_max_1 = 1, num_max_2 = 2;
     int i = 0;
     for (i = 0; i < 10; i++) {
         scanf("%d", &array [i]);
