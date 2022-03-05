@@ -11,19 +11,12 @@ int main() {
     for (i = 0; i < SIZE; i++) {
         scanf("%d", &array [i]);
     }
-    for (j = 0; j < (SIZE / 2) - 1; j++) {
-        for (k = 0; k <= (SIZE / 2) - 1 - j; k++) {
-            if (array [k] > array [k + 1]) {
-                swap(&array [k], &array [k + 1]);
+    for (j = 0; j < SIZE - 1; j++) {
+        for (k = 0; k < SIZE - 1 - j; k++) {
+                if ((array [k] % 10) > (array [k + 1] % 10)) {
+                    swap(&array [k], &array [k + 1]);
+                }
             }
-        }  
-    } 
-    for (j = (SIZE / 2); j < SIZE - 1; j++) {
-        for (k = (SIZE / 2); k <= SIZE - 1; k++) {
-            if (array [k] < array [k + 1]) {
-                swap(&array [k], &array [k + 1]);
-            }
-        }
     }
     for (i = 0; i < SIZE; i++) {
         printf("%d ", array [i]);
