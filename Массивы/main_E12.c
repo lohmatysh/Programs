@@ -13,7 +13,7 @@ int main() {
     }
     for (j = 0; j < SIZE - 1; j++) {
         if (j >= 0 && j < (SIZE / 2)) {
-            for (k = 0; k <= (SIZE / 2) - 1 - j; k++) {
+            for (k = 0; k < (SIZE / 2) - 1 - j; k++) {
                 if (array [k] > array [k + 1]) {
                     swap(&array [k], &array [k + 1]);
                 }
