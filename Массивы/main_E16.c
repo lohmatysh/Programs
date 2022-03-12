@@ -17,13 +17,12 @@ int main() {
             }
         }
     }
-    max = digits [0];
-    for (j = 0; j < SIZE - 1; j++) {
-        for (k = j + 1; k < SIZE; k++) {
-                if (digits [j] > digits [k]) {
-                    max = j;
-                }
-            }
+    max = 0;
+    for (i = 0; i < SIZE; i++) {
+        //printf("%d ", digits [j]);
+        if (digits [i] > max) {
+            max = i;
+        }
     }
     printf("%d", array [max]);
     return 0;
