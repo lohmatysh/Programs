@@ -12,14 +12,13 @@ int main() {
     }
     for (j = 0; j < SIZE - 1; j++) {
         for (k = j + 1; k < SIZE; k++) {
-                // printf("j = %d k = %d\n", array [j], array [k]);
-                if (array [j] == array [k]) {
-                    digits [j] = array [k];
-                }
+            if (array [j] == array [k]) {
+                digits [j]++;
             }
+        }
     }
     for (i = 0; i < SIZE; i++) {
-        printf("%d ", digits [i]);
+        printf("%d ", digits [i]);;
     }
     return 0;
 }
