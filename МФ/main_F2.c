@@ -18,8 +18,8 @@ int main() {
 
 void sort_even_odd(int n, int a[]) {
     int j = 0, k = 0, tmp = 0;
+    _Bool check_swap = true;
     for (j = 0; j < n - 1; j++) {
-        _Bool check_swap = true;
         for (k = 0; k < n - 1 - j; k++) {
             if ((a [k] % 2) != 0 && check_swap) {                
                 tmp = a [k];
