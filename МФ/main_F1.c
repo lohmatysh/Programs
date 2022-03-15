@@ -5,7 +5,7 @@
 void sort_array(int size, int a[]);
 
 int main() {
-    enum {SIZE = 10};
+    enum {SIZE = 20};
     int a [SIZE] = {0};
     int i = 0, size = 0;
     scanf("%d", &size);
@@ -27,9 +27,7 @@ void sort_array(int size, int a[]) {
             }
         }
     }
-    /*
     for (i = 0; i < size; i++) {
         printf("%d ", a [i]);
     }
-    */
 }
