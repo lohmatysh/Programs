@@ -17,10 +17,10 @@ int main() {
 }
 
 void sort_even_odd(int n, int a[]) {
-    int i = 0, j = 0, k = 0;
+    int j = 0, k = 0;
     int a_odd [n] = {0};
     int a_even [n] = {0};
-    for (i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         if ((a [i] % 2) == 0)  {
             a_odd [j] = a [i];
             j++;
