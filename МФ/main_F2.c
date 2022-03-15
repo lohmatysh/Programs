@@ -17,19 +17,26 @@ int main() {
 }
 
 void sort_even_odd(int n, int a[]) {
-    int j = 0, k = 0, tmp = 0;
-    _Bool check_swap = true;
-    for (j = 0; j < n - 1; j++) {
-        for (k = 0; k < n - 1 - j; k++) {
-            if ((a [k] % 2) != 0 && check_swap) {                
-                tmp = a [k];
-                a [k] = a [k + 1];
-                a [k + 1] = tmp;
-                check_swap = false; 
-            }
-            else if (check_swap == false) {                
-                check_swap = true; 
-            }
+    int i = 0, j = 0, k = 0;
+    int a_odd [n] = {0};
+    int a_even [n] = {0};
+    for (i = 0; i < n; i++) {
+        if ((a [i] % 2) == 0)  {
+            a_odd [j] = a [i];
+            j++;
         }
+        else {
+            a_even [k] = a [i];
+            k++; 
+        }
+    }
+    for (int i = 0; i < j; i++) {
+        a [i] = a_odd [i];
+    }
+    for (int i = 0; i < k; i++) {
+        a [i + j] = a_even [i];
+    }
+    for (int i = 0; i < n; i++) {
+        printf("%d ", a [i]);
     }
 }

@@ -17,8 +17,7 @@ int main() {
 }
 
 void swap_negmax_last(int size, int a[]) {
-    int j = 0, min = 0, min_num = 0, tmp = 0;
-    _Bool check = true;
+    int j = 0, min = 0, min_num = 0, tmp = 0, check = 1;
     min = -65533;
     for (j = 1; j < size; j++) {
         if (a [j] < 0) {
@@ -28,10 +27,10 @@ void swap_negmax_last(int size, int a[]) {
             }
         }
         if (a [j] < 0) {
-            check = false;
+            check = 0;
         }
     }
-    if (check == false) {
+    if (check == 0) {
         tmp = a [min_num];
         a [min_num] = a [size - 1];
         a [size - 1] = tmp;
