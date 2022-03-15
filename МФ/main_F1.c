@@ -27,7 +27,9 @@ void sort_array(int size, int a[]) {
             }
         }
     }
+    /*
     for (i = 0; i < size; i++) {
         printf("%d ", a [i]);
     }
+    */
 }
