@@ -19,7 +19,7 @@ int main() {
 void swap_negmax_last(int size, int a[]) {
     int j = 0, min = 0, min_num = 0, tmp = 0;
     _Bool check = true;
-    min = -99999;
+    min = -65533;
     for (j = 1; j < size; j++) {
         if (a [j] < 0) {
             if (a [j] > min) {
