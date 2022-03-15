@@ -5,7 +5,7 @@
 void sort_even_odd(int n, int a[]);
 
 int main() {
-    enum {SIZE = 5};
+    enum {SIZE = 20};
     int a [SIZE] = {0};
     int i = 0, n = 0;
     scanf("%d", &n);
@@ -17,7 +17,6 @@ int main() {
 }
 
 void sort_even_odd(int n, int a[]) {
-    int i = 0;
     int j = 0, k = 0, tmp = 0;
     for (j = 0; j < n - 1; j++) {
         _Bool check_swap = true;
@@ -32,8 +31,5 @@ void sort_even_odd(int n, int a[]) {
                 check_swap = true; 
             }
         }
-    }
-    for (i = 0; i < n; i++) {
-        printf("%d ", a [i]);
     }
 }
