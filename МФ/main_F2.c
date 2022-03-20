@@ -36,9 +36,7 @@ void sort_even_odd(int n, int a[]) {
     for (int i = 0; i < k; i++) {
         a [i + j] = a_even [i];
     }
-    /*
     for (int i = 0; i < n; i++) {
         printf("%d ", a [i]);
     }
-    */
 }
