@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <inttypes.h>
 
- void swap_negmax_last(int size, int a[]);
+void swap_negmax_last(int size, int a[]);
 
 int main() {
     enum {SIZE = 10};
@@ -17,22 +17,26 @@ int main() {
 }
 
 void swap_negmax_last(int size, int a[]) {
-    int j = 0, min = 0, min_num = 0, tmp = 0, check = 1;
-    min = -65533;
-    for (j = 1; j < size; j++) {
+    int j = 0, max = 0, max_num = 0, tmp = 0, check = 1;
+    for (j = 0; j < size; j++) {
         if (a [j] < 0) {
-            if (a [j] > min) {
-                min = a [j];
-                min_num = j;
-            }
+            max = a [j];
+            max_num = j;
+            break;
         }
+    }
+    for (j = 0; j < size; j++) {
         if (a [j] < 0) {
             check = 0;
+            if (a [j] > max) {
+                max = a [j];
+                max_num = j;
+            }
         }
     }
     if (check == 0) {
-        tmp = a [min_num];
-        a [min_num] = a [size - 1];
+        tmp = a [max_num];
+        a [max_num] = a [size - 1];
         a [size - 1] = tmp;
     }
     for (int i = 0; i < size; i++) {
