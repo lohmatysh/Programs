@@ -18,8 +18,8 @@ int main() {
 
 void sort_even_odd(int n, int a[]) {
     int j = 0, k = 0;
-    int a_odd [n] = {0};
-    int a_even [n] = {0};
+    int a_odd [1000] = {0};
+    int a_even [1000] = {0};
     for (int i = 0; i < n; i++) {
         if ((a [i] % 2) == 0)  {
             a_odd [j] = a [i];
@@ -36,7 +36,9 @@ void sort_even_odd(int n, int a[]) {
     for (int i = 0; i < k; i++) {
         a [i + j] = a_even [i];
     }
+    /*
     for (int i = 0; i < n; i++) {
         printf("%d ", a [i]);
     }
+    */
 }
