@@ -20,7 +20,7 @@ int main() {
 }
 
 int check(int a [], int N) {
-    int b [N] = {0};
+    int b [1000] = {0};
     int i = 0, j = 0, k = 0, m = 0, min = 0, max = 0, tmp = 0;
     max = a [0];
     min = a [0]; 
