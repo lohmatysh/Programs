@@ -43,5 +43,5 @@ int compression(int a [], int b [], int N) {
     j++;
     printf("\n");
     printf("%d", j);
-    return 0;
+    return j;
 }
