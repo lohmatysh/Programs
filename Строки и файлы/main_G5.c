@@ -4,7 +4,7 @@
 
 int main() {
     FILE *f;
-    char string [1100] = {0};
+    char string [1000] = {0};
     char c = 0;
     int i = 0, j = 0;
     f = fopen("input.txt", "r");
