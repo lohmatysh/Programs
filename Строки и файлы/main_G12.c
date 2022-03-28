@@ -4,22 +4,25 @@
 
 int main() {
     FILE *f;
-    char string [110] = {0};
-    int word_1 [110] = {0};
-    int word_2 [110] = {0};
+    char string [1100] = {0};
     char c = 0;
-    int i = 0, j = 0, k = 0, space = 0;
+    int i = 0;
     f = fopen("input.txt", "r");
     while ((c = fgetc(f)) != EOF && c != '\n') {
-        if (c == ' ') {
-            space = i;
-        }
         string [i] = c;
         i++;
     }
+    string [i] = ' ';
     fclose (f);
     f = fopen("output.txt", "w");
-    
+    for (int k = 0; k <= i; k++) {
+        if (string [k] != ' ') {
+            fprintf (f, "%c", string [k]); 
+        } 
+        if (string [k] == ' ') {
+            fprintf (f, "\n"); 
+        }
+    }
     fclose (f);
     return 0;  
 }
