@@ -6,7 +6,7 @@ int main() {
     FILE *f;
     char string [1100] = {0};
     char c = 0;
-    int i = 0;
+    int i = 0, check = 0;
     f = fopen("input.txt", "r");
     while ((c = fgetc(f)) != EOF && c != '\n') {
         string [i] = c;
@@ -17,9 +17,10 @@ int main() {
     f = fopen("output.txt", "w");
     for (int k = 0; k <= i; k++) {
         if (string [k] != ' ') {
-            fprintf (f, "%c", string [k]); 
+            fprintf (f, "%c", string [k]);
+            check = 1; 
         } 
-        if (string [k] == ' ' && string [k + 1] != ' ') {
+        if (check && string [k] == ' ' && string [k + 1] != ' ') {
             fprintf (f, "\n"); 
         }
     }
