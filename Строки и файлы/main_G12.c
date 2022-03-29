@@ -19,7 +19,7 @@ int main() {
         if (string [k] != ' ') {
             fprintf (f, "%c", string [k]); 
         } 
-        if (string [k] == ' ') {
+        if (string [k] == ' ' && string [k + 1] != ' ') {
             fprintf (f, "\n"); 
         }
     }
