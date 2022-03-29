@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <inttypes.h>
-#include <cstring>
  
 int is_palindrom(char str[]);
 
@@ -15,6 +14,7 @@ int main() {
         string [i] = c;
         i++;
     }
+    string [i] = '.';
     fclose (f);
     f = fopen("output.txt", "w");
     check = is_palindrom(string);
@@ -28,15 +28,15 @@ int main() {
     return 0;  
 }
 int is_palindrom(char str[]) {
-    int check = 0;
-    int l = 0;
-    int h = strlen(str) - 1;
-    while (h > l)
-    {
-        if (str[l++] != str[h--])
-        {
+    int h = 0, check = 0;
+    while (str[h] != '.') {
+        h++;
+    }
+    for (int i = 0; i <= h; i++) {
+        if (str[h - 1] != str[i]) {
             check = 1;
         }
+        h--;
     }
     return check;
 }
