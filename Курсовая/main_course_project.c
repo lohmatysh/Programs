@@ -31,7 +31,7 @@ int main (int argc, char *argv[]) {
         }
     }
     // Считывание данных из файла
-    FILE *f = fopen("temperature_small.csv", "r");
+    FILE *f = fopen(file_name, "r");
     while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
         if (a != 6) {
             char error[100] = {0};
@@ -48,6 +48,6 @@ int main (int argc, char *argv[]) {
             month[m].max.min = mi;
         }
     }
-    //printf("Month %d sum = %d count = %d\n", 3, month[3].sum, month[3].count);
+    printf("Month %d sum = %d count = %d\n", 3, month[3].sum, month[3].count);
     return 0;
 }
