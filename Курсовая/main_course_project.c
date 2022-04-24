@@ -31,8 +31,8 @@ int main (int argc, char *argv[]) {
         }
     }
     // Считывание данных из файла
-    FILE *f = fopen(" ", "r");
-    while ( (a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
+    FILE *f = fopen("temperature_small.csv", "r");
+    while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
         if (a != 6) {
             char error[100] = {0};
             fscanf(f, "%[^\n]", error);
