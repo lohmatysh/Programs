@@ -48,6 +48,8 @@ int main (int argc, char *argv[]) {
             month[m].max.min = mi;
         }
     }
-    printf("Month %d sum = %d count = %d\n", 3, month[3].sum, month[3].count);
+    for (int i = 1; i <= 12; i++) {
+        printf("Month %d Sum = %d Count = %d\n", i, month[i].sum, month[i].count);
+    }
     return 0;
 }
