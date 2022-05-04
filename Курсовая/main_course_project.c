@@ -23,18 +23,20 @@ int average_value (struct temperature* month, int n) {
 }
 
 int max_value (struct temperature* month, int n, int t) {
-    int max_f = month[n].max.t;
+    int max_f = -100;
     if (t > max_f) {
         max_f = t;
     }
     return max_f; 
 }
 
-/*
-int min_value ( ) {
-
+int min_value (struct temperature* month, int n, int t) {
+    int min_f = 100;
+    if (t < min_f) {
+        min_f = t;
+    }
+    return min_f; 
 }
-*/
 
 int main (int argc, char *argv[]) {
     char file_name[256];
@@ -48,13 +50,16 @@ int main (int argc, char *argv[]) {
                 -h Description of the application functionality. List of keys that handles the given application and their purpose.\n\
                 -f <filename.csv> input csv file to process.\n\
                 -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
-            case 'f': strcpy(file_name, optarg); 
+            case 'f': strcpy(file_name, optarg);
+                printf("=================================================\n"); 
                 printf("Input csv file to process: %s\n", file_name); 
                 printf("=================================================\n"); break;
             case 'm': strcpy(month_number_string, optarg);
+                printf("=================================================\n"); 
                 printf("Current month: %s\n", month_number_string); 
                 printf("=================================================\n"); break;
-            case '?': printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); 
+            case '?': printf("=================================================\n"); 
+                printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); 
                 printf("=================================================\n"); break;
         }
     }
@@ -70,7 +75,7 @@ int main (int argc, char *argv[]) {
             month[m].sum += t;
             month[m].count++;
             month[m].max.t = max_value(month, m, t);
-            month[m].min.t = t;
+            //month[m].min.t = min_value(month, m, t);
             month[m].max.day = d;
             month[m].max.month = m;
             month[m].max.hour = h;
@@ -85,7 +90,7 @@ int main (int argc, char *argv[]) {
     */
     printf("=================================================\n"); 
     for (int i = 1; i <= 12; i++) {
-        printf("Month %d Max = %d\n", i, month[i].max.t);
+        printf("Month %d Average = %d Max = %d Min = %d\n", i, average_value(month, i), month[i].max.t, month[i].min.t);
     }
     return 0;
 }
