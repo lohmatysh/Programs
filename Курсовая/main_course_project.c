@@ -7,12 +7,15 @@ struct data {
 
 struct temperature {
     long long signed int sum;
-    long long unsigned int count;
-    struct data max, min;
+    long unsigned int count;
+    struct data info;
+    int max_t;
+    int min_t;
 } month[12] = {0};
 
 int average_value (struct temperature* month, int n) {
-    long long signed int sum_f = month[n].sum, count_f = month[n].count, average_f = 0;
+    long long signed int sum_f = month[n].sum, average_f = 0;
+    long unsigned int count_f = month[n].count;
     average_f = sum_f / count_f;
     if (average_f == 0) {
         return 0;
@@ -25,7 +28,7 @@ int average_value (struct temperature* month, int n) {
 int max_value (struct temperature* month, int n, int t) {
     int max_f;
     if (month[n].count != 0) {
-        max_f = month[n].max.t;
+        max_f = month[n].max_t;
     }
     else {
         max_f = -100;
@@ -39,7 +42,7 @@ int max_value (struct temperature* month, int n, int t) {
 int min_value (struct temperature* month, int n, int t) {
     int min_f;
     if (month[n].count != 0) {
-        min_f = month[n].min.t;
+        min_f = month[n].min_t;
     }
     else {
         min_f = 100;
@@ -84,12 +87,12 @@ int main (int argc, char *argv[]) {
             fprintf(stderr, "Error string: %s\n", error);
         } else {
             //printf("Ok string: %d; %d; %d; %d; %d; %d\n", y, m, d, h, mi, t);
-            month[m].min.t = min_value(month, m, t);
-            month[m].max.t = max_value(month, m, t);
-            month[m].max.day = d;
-            month[m].max.month = m;
-            month[m].max.hour = h;
-            month[m].max.min = mi;
+            month[m].info.day = d;
+            month[m].info.month = m;
+            month[m].info.hour = h;
+            month[m].info.min = mi;
+            month[m].min_t = min_value(month, m, t);
+            month[m].max_t = max_value(month, m, t);
             month[m].sum += t;
             month[m].count++;
         }
@@ -97,7 +100,7 @@ int main (int argc, char *argv[]) {
     // Вывод данных
     printf("=================================================\n"); 
     for (int i = 1; i <= 12; i++) {
-        printf("Month %d Average = %d Max = %d Min = %d Sum = %lld Count = %llu\n", i, average_value(month, i), month[i].max.t, month[i].min.t, month[i].sum, month[i].count);
+        printf("Month %d Average = %d Max = %d Min = %d Sum = %lld Count = %lu\n", i, average_value(month, i), month[i].max_t, month[i].min_t, month[i].sum, month[i].count);
     }
     printf("=================================================\n"); 
     return 0;
