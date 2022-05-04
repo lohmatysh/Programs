@@ -13,7 +13,7 @@ struct temperature {
 
 int main (int argc, char *argv[]) {
     char file_name[256];
-    char month_number[256];
+    char month_number_string[256];
     int a, y, m, d, h, mi, t, rez = 0;
     opterr = 0;
     // Описание ключей для программы
@@ -25,8 +25,8 @@ int main (int argc, char *argv[]) {
                 -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
             case 'f': strcpy(file_name, optarg); 
                 printf("Input csv file to process: %s\n", file_name); break;
-            case 'm': strcpy(month_number, optarg); 
-                printf("Current month: %s\n", month_number); break;
+            case 'm': strcpy(month_number_string, optarg);
+                printf("Current month: %s\n", month_number_string); break;
             case '?': printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
         }
     }
