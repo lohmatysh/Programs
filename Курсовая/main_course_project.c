@@ -63,7 +63,7 @@ int main (int argc, char *argv[]) {
     int sum_array [12] = {0};
     int min_array [12] = {0};
     int max_array [12] = {0};
-    int a, y, m, d, h, mi, t, rez = 0, nm = 0;
+    int a, y, m, d, h, mi, t, rez = 0, nm = 0, check_month = 0;
     opterr = 0;
     // Описание ключей для программы
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
@@ -74,8 +74,7 @@ int main (int argc, char *argv[]) {
                 -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
             case 'f': strcpy(file_name, optarg);
                 printf("=================================================\n"); 
-                printf("Input csv file to process: %s\n", file_name); 
-                printf("=================================================\n"); break;
+                printf("Input csv file to process: %s\n", file_name); break;
             case 'm': strcpy(union_month.ch, optarg);
                 printf("=================================================\n");
                 switch (union_month.i) {
@@ -92,15 +91,16 @@ int main (int argc, char *argv[]) {
                     case 12593: nm = 11; break;
                     case 12849: nm = 12; break;
                 }
-                printf("Current month: %d\n", nm);
-                printf("=================================================\n"); break;
+                check_month = 1;
+                printf("Current month: %d\n", nm); break;
             case '?': printf("=================================================\n"); 
-                printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); 
-                printf("=================================================\n"); break;
+                printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
         }
     }
     // Считывание данных из файла
     FILE *f = fopen(file_name, "r");
+    printf("=================================================\n");
+     
     while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
         if (a != 6) {
             char error[100] = {0};
@@ -120,9 +120,14 @@ int main (int argc, char *argv[]) {
     }
     // Вывод данных
     printf("=================================================\n"); 
-    for (int i = 1; i <= 12; i++) {
-        printf("Month %d Average = %d Max = %d Min = %d Sum = %lld Count = %lu\n", i, average_value(month, i), month[i].max_t, month[i].min_t, month[i].sum, month[i].count);
+    if (check_month) {
+        printf("Month %d Average = %d Max = %d Min = %d Sum = %lld Count = %lu\n", nm, average_value(month, nm), month[nm].max_t, month[nm].min_t, month[nm].sum, month[nm].count);
     }
-    printf("=================================================\n"); 
+    else {
+        for (int i = 1; i <= 12; i++) {
+            printf("Month %d Average = %d Max = %d Min = %d Sum = %lld Count = %lu\n", i, average_value(month, i), month[i].max_t, month[i].min_t, month[i].sum, month[i].count);
+        }
+    }
+    printf("=================================================\n");
     return 0;
 }
