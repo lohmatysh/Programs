@@ -100,7 +100,7 @@ int main (int argc, char *argv[]) {
     // Считывание данных из файла
     FILE *f = fopen(file_name, "r");
     printf("=================================================\n");
-     
+    printf("Error list\n");
     while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
         if (a != 6) {
             char error[100] = {0};
@@ -119,15 +119,17 @@ int main (int argc, char *argv[]) {
         }
     }
     // Вывод данных
-    printf("=================================================\n"); 
     if (check_month) {
+        printf("=================================================\n"); 
         printf("Month %d Average = %d Max = %d Min = %d Sum = %lld Count = %lu\n", nm, average_value(month, nm), month[nm].max_t, month[nm].min_t, month[nm].sum, month[nm].count);
+        printf("=================================================\n");
     }
     else {
+        printf("=================================================\n"); 
         for (int i = 1; i <= 12; i++) {
             printf("Month %d Average = %d Max = %d Min = %d Sum = %lld Count = %lu\n", i, average_value(month, i), month[i].max_t, month[i].min_t, month[i].sum, month[i].count);
         }
+        printf("=================================================\n");
     }
-    printf("=================================================\n");
     return 0;
 }
