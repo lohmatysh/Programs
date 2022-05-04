@@ -23,7 +23,7 @@ int average_value (struct temperature* month, int n) {
 }
 
 int max_value (struct temperature* month, int n, int t) {
-    int max_f = -100;
+    int max_f = t;
     if (t > max_f) {
         max_f = t;
     }
@@ -31,7 +31,7 @@ int max_value (struct temperature* month, int n, int t) {
 }
 
 int min_value (struct temperature* month, int n, int t) {
-    int min_f = 100;
+    int min_f = month[n].min.t;
     if (t < min_f) {
         min_f = t;
     }
@@ -40,7 +40,7 @@ int min_value (struct temperature* month, int n, int t) {
 
 int main (int argc, char *argv[]) {
     char file_name[256];
-    char month_number_string[256];
+    char month_number[256];
     int a, y, m, d, h, mi, t, rez = 0;
     opterr = 0;
     // Описание ключей для программы
@@ -54,9 +54,9 @@ int main (int argc, char *argv[]) {
                 printf("=================================================\n"); 
                 printf("Input csv file to process: %s\n", file_name); 
                 printf("=================================================\n"); break;
-            case 'm': strcpy(month_number_string, optarg);
+            case 'm': strcpy(month_number, optarg);
                 printf("=================================================\n"); 
-                printf("Current month: %s\n", month_number_string); 
+                printf("Current month: %s\n", month_number); 
                 printf("=================================================\n"); break;
             case '?': printf("=================================================\n"); 
                 printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); 
@@ -83,11 +83,6 @@ int main (int argc, char *argv[]) {
         }
     }
     // Вывод данных
-    /*
-    for (int i = 1; i <= 12; i++) {
-        printf("Month %d Sum = %d Count = %d Max = %d Min = %d\n", i, month[i].sum, month[i].count, month[i].max.t, month[i].min.t);
-    }
-    */
     printf("=================================================\n"); 
     for (int i = 1; i <= 12; i++) {
         printf("Month %d Average = %d Max = %d Min = %d\n", i, average_value(month, i), month[i].max.t, month[i].min.t);
