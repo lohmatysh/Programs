@@ -6,11 +6,11 @@ struct data {
 };
 
 struct temperature {
-    long long signed int sum;
-    long unsigned int count;
     struct data info;
     int max_t;
     int min_t;
+    long unsigned int count;
+    long long signed int sum;
 } month[12] = {0};
 
 int average_value (struct temperature* month, int n) {
@@ -53,10 +53,14 @@ int min_value (struct temperature* month, int n, int t) {
     return min_f; 
 }
 
+union u {
+    char ch[256];
+    int i;
+} union_month;
+
 int main (int argc, char *argv[]) {
     char file_name[256];
-    char month_number[256];
-    int a, y, m, d, h, mi, t, rez = 0;
+    int a, y, m, d, h, mi, t, rez = 0, nm = 0;
     opterr = 0;
     // Описание ключей для программы
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
@@ -69,9 +73,23 @@ int main (int argc, char *argv[]) {
                 printf("=================================================\n"); 
                 printf("Input csv file to process: %s\n", file_name); 
                 printf("=================================================\n"); break;
-            case 'm': strcpy(month_number, optarg);
-                printf("=================================================\n"); 
-                printf("Current month: %s\n", month_number); 
+            case 'm': strcpy(union_month.ch, optarg);
+                printf("=================================================\n");
+                switch (union_month.i) {
+                    case 49: nm = 1; break;
+                    case 50: nm = 2; break;
+                    case 51: nm = 3; break;
+                    case 52: nm = 4; break;
+                    case 53: nm = 5; break;
+                    case 54: nm = 6; break;
+                    case 55: nm = 7; break;
+                    case 56: nm = 8; break;
+                    case 57: nm = 9; break;
+                    case 12337: nm = 10; break;
+                    case 12593: nm = 11; break;
+                    case 12849: nm = 12; break;
+                }
+                printf("Current month: %d\n", nm);
                 printf("=================================================\n"); break;
             case '?': printf("=================================================\n"); 
                 printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); 
