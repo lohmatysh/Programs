@@ -11,6 +11,31 @@ struct temperature {
     struct data max, min;
 } month[12] = {0};
 
+int average_value (struct temperature* month, int n) {
+    int sum_f = month[n].sum, count_f = month[n].count, average_f = 0;
+    average_f = sum_f / count_f;
+    if (average_f == 0) {
+        return 0;
+    }
+    else {
+        return average_f;
+    }
+}
+
+int max_value (struct temperature* month, int n, int t) {
+    int max_f = month[n].max.t;
+    if (t > max_f) {
+        max_f = t;
+    }
+    return max_f; 
+}
+
+/*
+int min_value ( ) {
+
+}
+*/
+
 int main (int argc, char *argv[]) {
     char file_name[256];
     char month_number_string[256];
@@ -24,10 +49,13 @@ int main (int argc, char *argv[]) {
                 -f <filename.csv> input csv file to process.\n\
                 -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
             case 'f': strcpy(file_name, optarg); 
-                printf("Input csv file to process: %s\n", file_name); break;
+                printf("Input csv file to process: %s\n", file_name); 
+                printf("=================================================\n"); break;
             case 'm': strcpy(month_number_string, optarg);
-                printf("Current month: %s\n", month_number_string); break;
-            case '?': printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
+                printf("Current month: %s\n", month_number_string); 
+                printf("=================================================\n"); break;
+            case '?': printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); 
+                printf("=================================================\n"); break;
         }
     }
     // Считывание данных из файла
@@ -41,15 +69,23 @@ int main (int argc, char *argv[]) {
             //printf("Ok string: %d; %d; %d; %d; %d; %d\n", y, m, d, h, mi, t);
             month[m].sum += t;
             month[m].count++;
-            month[m].max.t = t;
+            month[m].max.t = max_value(month, m, t);
+            month[m].min.t = t;
             month[m].max.day = d;
             month[m].max.month = m;
             month[m].max.hour = h;
             month[m].max.min = mi;
         }
     }
+    // Вывод данных
+    /*
     for (int i = 1; i <= 12; i++) {
-        printf("Month %d Sum = %d Count = %d\n", i, month[i].sum, month[i].count);
+        printf("Month %d Sum = %d Count = %d Max = %d Min = %d\n", i, month[i].sum, month[i].count, month[i].max.t, month[i].min.t);
+    }
+    */
+    printf("=================================================\n"); 
+    for (int i = 1; i <= 12; i++) {
+        printf("Month %d Max = %d\n", i, month[i].max.t);
     }
     return 0;
 }
