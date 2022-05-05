@@ -16,7 +16,7 @@ struct temperature {
 union u {
     char ch[256];
     int i;
-} union_month;
+} union_month = {0};
 
 int average_value (struct temperature* month, int n) {
     long long signed int sum_f = month[n].sum, average_f = 0;
@@ -60,9 +60,6 @@ int min_value (struct temperature* month, int n, int t) {
 
 int main (int argc, char *argv[]) {
     char file_name[256];
-    int sum_array [12] = {0};
-    int min_array [12] = {0};
-    int max_array [12] = {0};
     int a, y, m, d, h, mi, t, rez = 0, nm = 0, check_month = 0;
     opterr = 0;
     // Описание ключей для программы
