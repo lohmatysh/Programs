@@ -21,14 +21,14 @@ union u {
 } union_month = {0};
 
 // Объявление функций
-double average_value (struct temperature* month, int n);
-int max_value (struct temperature* month, int n, int t);
-int min_value (struct temperature* month, int n, int t);
-double average_value_year (struct temperature* month);
-int max_value_year (struct temperature* month);
-int min_value_year (struct temperature* month);
-void print_line ();
-void print_info ();
+float average_value(struct temperature* month, int n);
+int max_value(struct temperature* month, int n, int t);
+int min_value(struct temperature* month, int n, int t);
+float average_value_year(struct temperature* month);
+int max_value_year(struct temperature* month);
+int min_value_year(struct temperature* month);
+void print_space();
+void print_info();
 
 // Глобальные переменные
 char file_name[256];
@@ -36,22 +36,22 @@ int a, y, m, d, h, mi, t, rez = 0, nm = 0;
 _Bool check_month = false;
 
 // Основная программа 
-int main (int argc, char *argv[]) {
-    print_info ();
+int main(int argc, char *argv[]) {
+    print_info();
     opterr = 0;
     // Описание ключей для программы
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
-        switch (rez) {
+        switch(rez) {
             case 'h': printf("Set of supported keys by the application:\n\
                 -h Description of the application functionality. List of keys that handles the given application and their purpose.\n\
                 -f <filename.csv> input csv file to process.\n\
                 -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
             case 'f': strcpy(file_name, optarg);
-                print_line(); 
+                print_space();
                 printf("Input csv file to process: %s\n", file_name); break;
             case 'm': strcpy(union_month.ch, optarg);
-                print_line();
-                switch (union_month.i) {
+                print_space();
+                switch(union_month.i) {
                     case 49: nm = 1; break;
                     case 50: nm = 2; break;
                     case 51: nm = 3; break;
@@ -67,13 +67,13 @@ int main (int argc, char *argv[]) {
                 }
                 check_month = true;
                 printf("Current month: %d\n", nm); break;
-            case '?': print_line(); 
+            case '?': print_space(); 
                 printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
         }
     }
     // Считывание данных из файла
     FILE *f = fopen(file_name, "r");
-    print_line();
+    print_space();
     printf("Error list\n");
     while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
         if (a != 6) {
@@ -94,29 +94,29 @@ int main (int argc, char *argv[]) {
     }
     // Вывод данных
     if (check_month == true) {
-        print_line();
+        print_space();
         printf("Stats per a choosen month\n"); 
         printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", nm, average_value(month, nm), month[nm].min_t, month[nm].max_t, month[nm].sum, month[nm].count);
-        print_line();
+        print_space();
     }
     else {
-        print_line();
+        print_space();
         printf("Stats per each month\n");
         for (int i = 1; i <= 12; i++) {
             printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", i, average_value(month, i), month[i].min_t, month[i].max_t, month[i].sum, month[i].count);
         }
-        print_line();
+        print_space();
         printf("Stats per a year\n");
         printf("Average = %0.2f Min = %d Max = %d\n", average_value_year(month), min_value_year(month), max_value_year(month));
-        print_line();
+        print_space();
     }
     return 0;
 }
 
 // Функции
-double average_value (struct temperature* month, int n) {
+float average_value(struct temperature* month, int n) {
     long signed int sum_f = month[n].sum, count_f = month[n].count;
-    double average_f = 0.0;
+    float average_f = 0.0;
     average_f = sum_f / count_f;
     if (average_f == 0.0) {
         return 0.0;
@@ -126,7 +126,7 @@ double average_value (struct temperature* month, int n) {
     }
 }
 
-int max_value (struct temperature* month, int n, int t) {
+int max_value(struct temperature* month, int n, int t) {
     int max_f;
     if (month[n].count != 0) {
         max_f = month[n].max_t;
@@ -140,7 +140,7 @@ int max_value (struct temperature* month, int n, int t) {
     return max_f; 
 }
 
-int min_value (struct temperature* month, int n, int t) {
+int min_value(struct temperature* month, int n, int t) {
     int min_f;
     if (month[n].count != 0) {
         min_f = month[n].min_t;
@@ -154,8 +154,8 @@ int min_value (struct temperature* month, int n, int t) {
     return min_f; 
 }
 
-double average_value_year (struct temperature* month) {
-    double sum_year = 0, count_year = 12.0, average_year = 0.0;
+float average_value_year(struct temperature* month) {
+    float sum_year = 0, count_year = 12.0, average_year = 0.0;
     for (int i = 1; i <= 12; i++) {
         sum_year += average_value(month, i);
     }
@@ -168,7 +168,7 @@ double average_value_year (struct temperature* month) {
     }
 }
 
-int max_value_year (struct temperature* month) {
+int max_value_year(struct temperature* month) {
     int max_year = month[1].max_t;
     for (int i = 2; i <= 12; i++) {
         if (month[i].max_t > max_year) {
@@ -178,7 +178,7 @@ int max_value_year (struct temperature* month) {
     return max_year; 
 }
 
-int min_value_year (struct temperature* month) {
+int min_value_year(struct temperature* month) {
     int min_year = month[1].min_t;
     for (int i = 2; i <= 12; i++) {
         if (month[i].min_t < min_year) {
@@ -188,12 +188,12 @@ int min_value_year (struct temperature* month) {
     return min_year; 
 }
 
-void print_line () {
-    printf("================================================================\n");
+void print_space() {
+    printf("\n");
 }
 
-void print_info () {
-    print_line ();
+void print_info() {
+    print_space();
     printf("This console application is a project for course 'Basic Programming in C'.\n");
     printf("Developped by student Ivan Radchenko.\n");
     printf("This console application displays average, minimal and maximal temperature per each month and per a year.\n");
