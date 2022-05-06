@@ -1,11 +1,5 @@
 #include "temp_functions.h"
 
-// Глобальные переменные
-_Bool check_month = false, check_year = false;
-char file_name[256];
-int a, y, m, d, h, mi, t, rez = 0, nm = 0;
-FILE *f;
-
 // Функции
 float average_value(struct temperature* month, int n) {
     long signed int sum_f = month[n].sum, count_f = month[n].count;
