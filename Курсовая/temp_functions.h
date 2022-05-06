@@ -3,9 +3,9 @@
 #include <unistd.h>
 
 // Глобальные переменные
-_Bool check_month = false, check_year = false;
+_Bool check_month, check_year;
 char file_name[256];
-int a, y, m, d, h, mi, t, rez = 0, nm = 0;
+int a, y, m, d, h, mi, t, rez, nm;
 FILE *f;
 
 // Структуры и объединения
