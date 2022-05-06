@@ -31,7 +31,7 @@ void print_space();
 void print_info();
 void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_year);
 void data_scan(struct temperature* month, FILE *f);
-void keys(int argc, char *argv[]);
+void keys_scan(int argc, char *argv[]);
 
 // Глобальные переменные
 _Bool check_month = false, check_year = false;
@@ -42,7 +42,7 @@ FILE *f;
 // Основная программа 
 int main(int argc, char *argv[]) {
     print_info(); // Вывод вводной информации
-    keys(argc, argv); // Описание ключей для программы
+    keys_scan(argc, argv); // Описание ключей для программы
     data_scan(month, f); // Считывание данных из файла
     print_stats(month, check_month, check_year); // Вывод данных
     return 0;
@@ -185,7 +185,7 @@ void data_scan(struct temperature* month, FILE *f) {
     fclose(f);
 }
 
-void keys(int argc, char *argv[]) {
+void keys_scan(int argc, char *argv[]) {
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
         switch(rez) {
             case 'h': printf("Set of supported keys by the application:\n\
