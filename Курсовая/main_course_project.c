@@ -29,17 +29,22 @@ int max_value_year(struct temperature* month);
 int min_value_year(struct temperature* month);
 void print_space();
 void print_info();
-void print_stats(struct temperature* month, _Bool ischeck_month);
+void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_year);
+void data_scan (struct temperature* month, FILE *f);
 
 // Глобальные переменные
+_Bool check_month = false, check_year = false;
 char file_name[256];
 int a, y, m, d, h, mi, t, rez = 0, nm = 0;
-_Bool check_month = false;
+FILE *f;
 
 // Основная программа 
 int main(int argc, char *argv[]) {
-    print_info();
     opterr = 0;
+
+    // Вывод вводной информации
+    print_info();
+
     // Описание ключей для программы
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
         switch(rez) {
@@ -49,7 +54,8 @@ int main(int argc, char *argv[]) {
                 -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
             case 'f': strcpy(file_name, optarg);
                 print_space();
-                printf("Input csv file to process: %s\n", file_name); break;
+                printf("Input csv file to process: %s\n", file_name);
+                check_year = true; break;
             case 'm': strcpy(union_month.ch, optarg);
                 print_space();
                 switch(union_month.i) {
@@ -72,29 +78,13 @@ int main(int argc, char *argv[]) {
                 printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
         }
     }
+
     // Считывание данных из файла
-    FILE *f = fopen(file_name, "r");
-    print_space();
-    printf("Error list\n");
-    while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
-        if (a != 6) {
-            char error[100] = {0};
-            fscanf(f, "%[^\n]", error);
-            fprintf(stderr, "Error string: %s\n", error);
-        } else {
-            //printf("Ok string: %d; %d; %d; %d; %d; %d\n", y, m, d, h, mi, t);
-            month[m].info.day = d;
-            month[m].info.month = m;
-            month[m].info.hour = h;
-            month[m].info.min = mi;
-            month[m].min_t = min_value(month, m, t);
-            month[m].max_t = max_value(month, m, t);
-            month[m].sum += t;
-            month[m].count++;
-        }
-    }
+    data_scan(month, f);
+
     // Вывод данных
-    print_stats(month, check_month);
+    print_stats(month, check_month, check_year);
+
     return 0;
 }
 
@@ -184,14 +174,14 @@ void print_info() {
     printf("This console application displays average, minimal and maximal temperature per each month and per a year.\n");
 }
 
-void print_stats(struct temperature* month, _Bool ischeck_month) {
+void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_year) {
     if (ischeck_month == true) {
         print_space();
         printf("Stats per a choosen month\n"); 
-        printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", nm, average_value(month, nm), month[nm].min_t, month[nm].max_t, month[nm].sum, month[nm].count);
+        printf("Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", average_value(month, nm), month[nm].min_t, month[nm].max_t, month[nm].sum, month[nm].count);
         print_space();
     }
-    else {
+    else if (ischeck_year) {
         print_space();
         printf("Stats per each month\n");
         for (int i = 1; i <= 12; i++) {
@@ -202,4 +192,34 @@ void print_stats(struct temperature* month, _Bool ischeck_month) {
         printf("Average = %0.2f Min = %d Max = %d\n", average_value_year(month), min_value_year(month), max_value_year(month));
         print_space();
     }
+}
+
+void data_scan (struct temperature* month, FILE *f) {
+    _Bool ischeck_error = false, iserror_text = true;
+    f = fopen(file_name, "r");
+    while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
+        if (a != 6) {
+            ischeck_error = true;
+            if (ischeck_error && iserror_text) {
+                print_space();
+                printf("Error list\n");
+                ischeck_error = false;
+                iserror_text = false;
+            }
+            char error[100] = {0};
+            fscanf(f, "%[^\n]", error);
+            fprintf(stderr, "Error string: %s\n", error);
+        } else {
+            //printf("Ok string: %d; %d; %d; %d; %d; %d\n", y, m, d, h, mi, t);
+            month[m].info.day = d;
+            month[m].info.month = m;
+            month[m].info.hour = h;
+            month[m].info.min = mi;
+            month[m].min_t = min_value(month, m, t);
+            month[m].max_t = max_value(month, m, t);
+            month[m].sum += t;
+            month[m].count++;
+        }
+    }
+    fclose(f);
 }
