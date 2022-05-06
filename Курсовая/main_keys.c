@@ -1,9 +1,9 @@
 #include "temp_functions.h"
 
 // Глобальные переменные
-extern _Bool check_month = false, check_year = false;
+extern _Bool check_month, check_year;
 extern char file_name[256];
-extern int a, y, m, d, h, mi, t, rez = 0, nm = 0;
+extern int a, y, m, d, h, mi, t, rez, nm;
 extern FILE *f;
 
 // Основная программа 
