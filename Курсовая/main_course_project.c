@@ -41,20 +41,10 @@ FILE *f;
 
 // Основная программа 
 int main(int argc, char *argv[]) {
-    opterr = 0;
-
-    // Вывод вводной информации
-    print_info();
-
-    // Описание ключей для программы
-    keys(argc, argv);
-     
-    // Считывание данных из файла
-    data_scan(month, f);
-
-    // Вывод данных
-    print_stats(month, check_month, check_year);
-
+    print_info(); // Вывод вводной информации
+    keys(argc, argv); // Описание ключей для программы
+    data_scan(month, f); // Считывание данных из файла
+    print_stats(month, check_month, check_year); // Вывод данных
     return 0;
 }
 
@@ -142,6 +132,7 @@ void print_info() {
     printf("This console application is a project for course 'Basic Programming in C'.\n");
     printf("Developped by student Ivan Radchenko.\n");
     printf("This console application displays average, minimal and maximal temperature per each month and per a year.\n");
+    opterr = 0;
 }
 
 void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_year) {
