@@ -28,6 +28,7 @@ double average_value_year (struct temperature* month);
 int max_value_year (struct temperature* month);
 int min_value_year (struct temperature* month);
 void print_line ();
+void print_info ();
 
 // Глобальные переменные
 char file_name[256];
@@ -36,8 +37,8 @@ _Bool check_month = false;
 
 // Основная программа 
 int main (int argc, char *argv[]) {
+    print_info ();
     opterr = 0;
-
     // Описание ключей для программы
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
         switch (rez) {
@@ -93,17 +94,20 @@ int main (int argc, char *argv[]) {
     }
     // Вывод данных
     if (check_month == true) {
-        print_line(); 
-        printf("Month %d Average = %0.2f Max = %d Min = %d Sum = %ld Count = %ld\n", nm, average_value(month, nm), month[nm].max_t, month[nm].min_t, month[nm].sum, month[nm].count);
+        print_line();
+        printf("Stats per a choosen month\n"); 
+        printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", nm, average_value(month, nm), month[nm].min_t, month[nm].max_t, month[nm].sum, month[nm].count);
         print_line();
     }
     else {
         print_line();
+        printf("Stats per each month\n");
         for (int i = 1; i <= 12; i++) {
-            printf("Month %d Average = %0.2f Max = %d Min = %d Sum = %ld Count = %ld\n", i, average_value(month, i), month[i].max_t, month[i].min_t, month[i].sum, month[i].count);
+            printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", i, average_value(month, i), month[i].min_t, month[i].max_t, month[i].sum, month[i].count);
         }
         print_line();
-        printf("Average year = %0.2f Max year %d Min year %d\n", average_value_year(month), max_value_year(month), min_value_year(month));
+        printf("Stats per a year\n");
+        printf("Average = %0.2f Min = %d Max = %d\n", average_value_year(month), min_value_year(month), max_value_year(month));
         print_line();
     }
     return 0;
@@ -185,5 +189,12 @@ int min_value_year (struct temperature* month) {
 }
 
 void print_line () {
-    printf("=================================================\n");
+    printf("================================================================\n");
+}
+
+void print_info () {
+    print_line ();
+    printf("This console application is a project for course 'Basic Programming in C'.\n");
+    printf("Developped by student Ivan Radchenko.\n");
+    printf("This console application displays average, minimal and maximal temperature per each month and per a year.\n");
 }
