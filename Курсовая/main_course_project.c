@@ -29,6 +29,7 @@ int max_value_year(struct temperature* month);
 int min_value_year(struct temperature* month);
 void print_space();
 void print_info();
+void print_stats(struct temperature* month, _Bool ischeck_month);
 
 // Глобальные переменные
 char file_name[256];
@@ -93,23 +94,7 @@ int main(int argc, char *argv[]) {
         }
     }
     // Вывод данных
-    if (check_month == true) {
-        print_space();
-        printf("Stats per a choosen month\n"); 
-        printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", nm, average_value(month, nm), month[nm].min_t, month[nm].max_t, month[nm].sum, month[nm].count);
-        print_space();
-    }
-    else {
-        print_space();
-        printf("Stats per each month\n");
-        for (int i = 1; i <= 12; i++) {
-            printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", i, average_value(month, i), month[i].min_t, month[i].max_t, month[i].sum, month[i].count);
-        }
-        print_space();
-        printf("Stats per a year\n");
-        printf("Average = %0.2f Min = %d Max = %d\n", average_value_year(month), min_value_year(month), max_value_year(month));
-        print_space();
-    }
+    print_stats(month, check_month);
     return 0;
 }
 
@@ -197,4 +182,24 @@ void print_info() {
     printf("This console application is a project for course 'Basic Programming in C'.\n");
     printf("Developped by student Ivan Radchenko.\n");
     printf("This console application displays average, minimal and maximal temperature per each month and per a year.\n");
+}
+
+void print_stats(struct temperature* month, _Bool ischeck_month) {
+    if (ischeck_month == true) {
+        print_space();
+        printf("Stats per a choosen month\n"); 
+        printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", nm, average_value(month, nm), month[nm].min_t, month[nm].max_t, month[nm].sum, month[nm].count);
+        print_space();
+    }
+    else {
+        print_space();
+        printf("Stats per each month\n");
+        for (int i = 1; i <= 12; i++) {
+            printf("Month %d Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", i, average_value(month, i), month[i].min_t, month[i].max_t, month[i].sum, month[i].count);
+        }
+        print_space();
+        printf("Stats per a year\n");
+        printf("Average = %0.2f Min = %d Max = %d\n", average_value_year(month), min_value_year(month), max_value_year(month));
+        print_space();
+    }
 }
