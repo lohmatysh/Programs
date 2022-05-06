@@ -9,4 +9,6 @@ temp_functions.o: temp_functions.c
 					gcc -c -o temp_functions.o temp_functions.c
 
 clean:
-		rm -rf *.o prog
+		Srm -rf *.o prog
+		del *.o
+		del prog.exe
