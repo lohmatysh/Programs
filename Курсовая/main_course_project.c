@@ -30,7 +30,8 @@ int min_value_year(struct temperature* month);
 void print_space();
 void print_info();
 void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_year);
-void data_scan (struct temperature* month, FILE *f);
+void data_scan(struct temperature* month, FILE *f);
+void keys(int argc, char *argv[]);
 
 // Глобальные переменные
 _Bool check_month = false, check_year = false;
@@ -46,39 +47,8 @@ int main(int argc, char *argv[]) {
     print_info();
 
     // Описание ключей для программы
-    while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
-        switch(rez) {
-            case 'h': printf("Set of supported keys by the application:\n\
-                -h Description of the application functionality. List of keys that handles the given application and their purpose.\n\
-                -f <filename.csv> input csv file to process.\n\
-                -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
-            case 'f': strcpy(file_name, optarg);
-                print_space();
-                printf("Input csv file to process: %s\n", file_name);
-                check_year = true; break;
-            case 'm': strcpy(union_month.ch, optarg);
-                print_space();
-                switch(union_month.i) {
-                    case 49: nm = 1; break;
-                    case 50: nm = 2; break;
-                    case 51: nm = 3; break;
-                    case 52: nm = 4; break;
-                    case 53: nm = 5; break;
-                    case 54: nm = 6; break;
-                    case 55: nm = 7; break;
-                    case 56: nm = 8; break;
-                    case 57: nm = 9; break;
-                    case 12337: nm = 10; break;
-                    case 12593: nm = 11; break;
-                    case 12849: nm = 12; break;
-                }
-                check_month = true;
-                printf("Current month: %d\n", nm); break;
-            case '?': print_space(); 
-                printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
-        }
-    }
-
+    keys(argc, argv);
+     
     // Считывание данных из файла
     data_scan(month, f);
 
@@ -194,7 +164,7 @@ void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_y
     }
 }
 
-void data_scan (struct temperature* month, FILE *f) {
+void data_scan(struct temperature* month, FILE *f) {
     _Bool ischeck_error = false, iserror_text = true;
     f = fopen(file_name, "r");
     while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
@@ -222,4 +192,39 @@ void data_scan (struct temperature* month, FILE *f) {
         }
     }
     fclose(f);
+}
+
+void keys(int argc, char *argv[]) {
+    while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
+        switch(rez) {
+            case 'h': printf("Set of supported keys by the application:\n\
+                -h Description of the application functionality. List of keys that handles the given application and their purpose.\n\
+                -f <filename.csv> input csv file to process.\n\
+                -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
+            case 'f': strcpy(file_name, optarg);
+                print_space();
+                printf("Input csv file to process: %s\n", file_name);
+                check_year = true; break;
+            case 'm': strcpy(union_month.ch, optarg);
+                print_space();
+                switch(union_month.i) {
+                    case 49: nm = 1; break;
+                    case 50: nm = 2; break;
+                    case 51: nm = 3; break;
+                    case 52: nm = 4; break;
+                    case 53: nm = 5; break;
+                    case 54: nm = 6; break;
+                    case 55: nm = 7; break;
+                    case 56: nm = 8; break;
+                    case 57: nm = 9; break;
+                    case 12337: nm = 10; break;
+                    case 12593: nm = 11; break;
+                    case 12849: nm = 12; break;
+                }
+                check_month = true;
+                printf("Current month: %d\n", nm); break;
+            case '?': print_space(); 
+                printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
+        }
+    }
 }
