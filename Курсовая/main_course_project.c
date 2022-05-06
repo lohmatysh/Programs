@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <unistd.h>
 
 // Структуры и объединения
@@ -30,11 +31,13 @@ void print_line ();
 
 // Глобальные переменные
 char file_name[256];
-int a, y, m, d, h, mi, t, rez = 0, nm = 0, check_month = 0;
+int a, y, m, d, h, mi, t, rez = 0, nm = 0;
+_Bool check_month = false;
 
 // Основная программа 
 int main (int argc, char *argv[]) {
     opterr = 0;
+
     // Описание ключей для программы
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
         switch (rez) {
@@ -61,7 +64,7 @@ int main (int argc, char *argv[]) {
                     case 12593: nm = 11; break;
                     case 12849: nm = 12; break;
                 }
-                check_month = 1;
+                check_month = true;
                 printf("Current month: %d\n", nm); break;
             case '?': print_line(); 
                 printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
@@ -89,9 +92,7 @@ int main (int argc, char *argv[]) {
         }
     }
     // Вывод данных
-    print_line(); 
-    printf("Average year = %0.2f Max year %d Min year %d\n", average_value_year(month), max_value_year(month), min_value_year(month));
-    if (check_month) {
+    if (check_month == true) {
         print_line(); 
         printf("Month %d Average = %0.2f Max = %d Min = %d Sum = %ld Count = %ld\n", nm, average_value(month, nm), month[nm].max_t, month[nm].min_t, month[nm].sum, month[nm].count);
         print_line();
@@ -101,6 +102,8 @@ int main (int argc, char *argv[]) {
         for (int i = 1; i <= 12; i++) {
             printf("Month %d Average = %0.2f Max = %d Min = %d Sum = %ld Count = %ld\n", i, average_value(month, i), month[i].max_t, month[i].min_t, month[i].sum, month[i].count);
         }
+        print_line();
+        printf("Average year = %0.2f Max year %d Min year %d\n", average_value_year(month), max_value_year(month), min_value_year(month));
         print_line();
     }
     return 0;
