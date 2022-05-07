@@ -96,3 +96,61 @@ void print_info() {
     printf("Developped by student Ivan Radchenko.\n");
     printf("This console application displays average, minimal and maximal temperature per each month and per a year.\n");
 }
+
+int scan_keys(int argc, char *argv[], char *file_name, union u union_month, int rez, int nm) {
+    int check = 0;
+    while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
+        switch(rez) {
+            case 'h': printf("Set of supported keys by the application:\n\
+                -h Description of the application functionality. List of keys that handles the given application and their purpose.\n\
+                -f <filename.csv> input csv file to process.\n\
+                -m <month number> if this key is given, then output only statistics for the specified month.\n"); break;
+            case 'f': strcpy(file_name, optarg);
+                print_space();
+                printf("Input csv file to process: %s\n", file_name);
+                check = 0; break;
+            case 'm': strcpy(union_month.ch, optarg);
+                print_space();
+                switch(union_month.i) {
+                    case 49: nm = 1; break;
+                    case 50: nm = 2; break;
+                    case 51: nm = 3; break;
+                    case 52: nm = 4; break;
+                    case 53: nm = 5; break;
+                    case 54: nm = 6; break;
+                    case 55: nm = 7; break;
+                    case 56: nm = 8; break;
+                    case 57: nm = 9; break;
+                    case 12337: nm = 10; break;
+                    case 12593: nm = 11; break;
+                    case 12849: nm = 12; break;
+                }
+                printf("Current month: %d\n", nm); 
+                check = nm; break;
+            case '?': print_space(); 
+                printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
+        }
+    }
+    return check;
+}
+
+// Вывод данных
+void print_stats(struct temperature* month, int check) {
+    if (check != 0) {
+        print_space();
+        printf("Stats per a choosen month\n"); 
+        printf("Average = %0.2f Min = %d Max = %d Count = %ld\n", average_value(month, check), month[check].min_t, month[check].max_t, month[check].count);
+        print_space();
+    }
+    else {
+        print_space();
+        printf("Stats per each month\n");
+        for (int i = 1; i <= 12; i++) {
+            printf("Month %d Average = %0.2f Min = %d Max = %d Count = %ld\n", i, average_value(month, i), month[i].min_t, month[i].max_t, month[i].count);
+        }
+        print_space();
+        printf("Stats per a year\n");
+        printf("Average = %0.2f Min = %d Max = %d\n", average_value_year(month), min_value_year(month), max_value_year(month));
+        print_space();
+    }
+}
