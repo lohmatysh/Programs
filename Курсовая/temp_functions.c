@@ -99,13 +99,7 @@ void print_info() {
 }
 
 // Обработка ключей программы
-void keys_scan(int argc, char *argv[], char *file_name, int nm, int rez, _Bool check_year, _Bool check_month) {
-    
-    union u {
-        char ch[256];
-        int i;
-    } union_month = {0};
-
+void keys_scan(int argc, char *argv[], char *file_name, union u union_month, int nm, int rez, _Bool check_year, _Bool check_month) {
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
         switch(rez) {
             case 'h': printf("Set of supported keys by the application:\n\
@@ -132,8 +126,8 @@ void keys_scan(int argc, char *argv[], char *file_name, int nm, int rez, _Bool c
                     case 12593: nm = 11; break;
                     case 12849: nm = 12; break;
                 }
-                check_month = true;
-                printf("Current month: %d\n", nm); break;
+                printf("Current month: %d\n", nm); 
+                check_month = true; break;
             case '?': print_space(); 
                 printf("Error found! No such key %s exists. Try -h for help.\n", argv[optind-1]); break;
         }
@@ -160,7 +154,7 @@ void data_scan(struct temperature* month, FILE *f, char *file_name, int a, int y
             //printf("Ok string: %d; %d; %d; %d; %d; %d\n", y, m, d, h, mi, t);
             month[m].info.year = y;
             month[m].info.day = d;
-            month[m].info.moon = m;
+            month[m].info.month = m;
             month[m].info.hour = h;
             month[m].info.min = mi;
             month[m].min_t = min_value(month, m, t);
@@ -173,14 +167,14 @@ void data_scan(struct temperature* month, FILE *f, char *file_name, int a, int y
 }
 
 // Вывод данных
-void print_stats(struct temperature* month, int nm, _Bool ischeck_month, _Bool ischeck_year) {
-    if (ischeck_month == true) {
+void print_stats(struct temperature* month, int nm, _Bool check_month, _Bool check_year) {
+    if (check_month == true) {
         print_space();
         printf("Stats per a choosen month\n"); 
         printf("Average = %0.2f Min = %d Max = %d Sum = %ld Count = %ld\n", average_value(month, nm), month[nm].min_t, month[nm].max_t, month[nm].sum, month[nm].count);
         print_space();
     }
-    else if (ischeck_year) {
+    else if (check_year) {
         print_space();
         printf("Stats per each month\n");
         for (int i = 1; i <= 12; i++) {
