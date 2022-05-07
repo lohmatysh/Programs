@@ -30,7 +30,7 @@ int min_value_year(struct temperature* month);
 void print_space();
 void print_info();
 void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_year);
-void data_scan(struct temperature* month, FILE *f);
+void data_scan(struct temperature* month, FILE *f, int y, int m, int d, int h, int mi, int t);
 void keys_scan(int argc, char *argv[]);
 
 // Глобальные переменные
@@ -43,7 +43,7 @@ FILE *f;
 int main(int argc, char *argv[]) {
     print_info(); // Вывод вводной информации
     keys_scan(argc, argv); // Обработка ключей программы
-    data_scan(month, f); // Считывание данных из файла
+    data_scan(month, f, y, m, d, h, mi, t); // Считывание данных из файла
     print_stats(month, check_month, check_year); // Вывод данных
     return 0;
 }
@@ -155,7 +155,7 @@ void print_stats(struct temperature* month, _Bool ischeck_month, _Bool ischeck_y
     }
 }
 
-void data_scan(struct temperature* month, FILE *f) {
+void data_scan(struct temperature* month, FILE *f, int y, int m, int d, int h, int mi, int t) {
     _Bool ischeck_error = false, iserror_text = true;
     f = fopen(file_name, "r");
     while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
