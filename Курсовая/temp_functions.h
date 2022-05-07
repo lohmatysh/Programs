@@ -30,4 +30,5 @@ int min_value_year(struct temperature* month);
 void print_space();
 void print_info();
 int scan_keys(int argc, char *argv[], char *file_name, union u union_month, int rez, int nm);
+void scan_data(struct temperature* month, FILE *f, char *file_name, int a, int y, int m, int d, int h, int mi, int t);
 void print_stats(struct temperature* month, int check);

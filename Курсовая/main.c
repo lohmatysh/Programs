@@ -4,7 +4,6 @@
 #include "temp_functions.h"
 
 // Глобальные переменные
-_Bool check_error = false, error_text = true;
 char file_name[256];
 int a;
 int y, m, d, h, mi, t;
@@ -23,32 +22,7 @@ int main(int argc, char *argv[]) {
     check = scan_keys(argc, argv, file_name, union_month, rez, nm);
     
     // Считывание данных из файла
-    f = fopen(file_name, "r");
-    while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
-        if (a != 6) {
-            check_error = true;
-            if (check_error && error_text) {
-                print_space();
-                printf("Error list\n");
-                check_error = false;
-                error_text = false;
-            }
-            char error[100] = {0};
-            fscanf(f, "%[^\n]", error);
-            fprintf(stderr, "Error string: %s\n", error);
-        } else {
-            month[m].info.year = y;
-            month[m].info.day = d;
-            month[m].info.month = m;
-            month[m].info.hour = h;
-            month[m].info.min = mi;
-            month[m].min_t = min_value(month, m, t);
-            month[m].max_t = max_value(month, m, t);
-            month[m].sum += t;
-            month[m].count++;
-        }
-    }
-    fclose(f);
+    scan_data(month, f, file_name, a, y, m, d, h, mi, t);
 
     // Вывод данных
     print_stats(month, check);

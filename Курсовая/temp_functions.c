@@ -97,6 +97,7 @@ void print_info() {
     printf("This console application displays average, minimal and maximal temperature per each month and per a year.\n");
 }
 
+// Обработка ключей программы
 int scan_keys(int argc, char *argv[], char *file_name, union u union_month, int rez, int nm) {
     int check = 0;
     while ((rez = getopt(argc, argv, "hf:m:")) != -1) {
@@ -132,6 +133,37 @@ int scan_keys(int argc, char *argv[], char *file_name, union u union_month, int 
         }
     }
     return check;
+}
+
+// Считывание данных из файла
+void scan_data(struct temperature* month, FILE *f, char *file_name, int a, int y, int m, int d, int h, int mi, int t) {
+    _Bool check_error = false, error_text = true;
+    f = fopen(file_name, "r");
+    while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
+        if (a != 6) {
+            check_error = true;
+            if (check_error && error_text) {
+                print_space();
+                printf("Error list\n");
+                check_error = false;
+                error_text = false;
+            }
+            char error[100] = {0};
+            fscanf(f, "%[^\n]", error);
+            fprintf(stderr, "Error string: %s\n", error);
+        } else {
+            month[m].info.year = y;
+            month[m].info.day = d;
+            month[m].info.month = m;
+            month[m].info.hour = h;
+            month[m].info.min = mi;
+            month[m].min_t = min_value(month, m, t);
+            month[m].max_t = max_value(month, m, t);
+            month[m].sum += t;
+            month[m].count++;
+        }
+    }
+    fclose(f);
 }
 
 // Вывод данных
