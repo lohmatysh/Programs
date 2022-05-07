@@ -108,7 +108,7 @@ int scan_keys(int argc, char *argv[], char *file_name, union u union_month, int 
             case 'f': strcpy(file_name, optarg);
                 print_space();
                 printf("Input csv file to process: %s\n", file_name);
-                check = 0; break;
+                check = 365; break;
             case 'm': strcpy(union_month.ch, optarg);
                 print_space();
                 switch(union_month.i) {
@@ -136,13 +136,13 @@ int scan_keys(int argc, char *argv[], char *file_name, union u union_month, int 
 
 // Вывод данных
 void print_stats(struct temperature* month, int check) {
-    if (check != 0) {
+    if (check != 0 && check != 365) {
         print_space();
         printf("Stats per a choosen month\n"); 
         printf("Average = %0.2f Min = %d Max = %d Count = %ld\n", average_value(month, check), month[check].min_t, month[check].max_t, month[check].count);
         print_space();
     }
-    else {
+    else if (check == 365){
         print_space();
         printf("Stats per each month\n");
         for (int i = 1; i <= 12; i++) {
