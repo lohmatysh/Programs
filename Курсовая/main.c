@@ -7,7 +7,7 @@
 char file_name[256];
 int a;
 int y, m, d, h, mi, t;
-int rez, nm, check;
+int rez, nm, check, error;
 FILE *f;
 struct temperature month[12] = {0};
 union u union_month = {0};
@@ -22,10 +22,10 @@ int main(int argc, char *argv[]) {
     check = scan_keys(argc, argv, file_name, union_month, rez, nm);
     
     // Считывание данных из файла
-    scan_data(month, f, file_name, a, y, m, d, h, mi, t);
+    error = scan_data(month, f, file_name, a, y, m, d, h, mi, t);
 
     // Вывод данных
-    print_stats(month, check);
+    print_stats(month, check, error);
     
     return 0;
 }

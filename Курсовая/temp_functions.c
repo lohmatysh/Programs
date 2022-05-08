@@ -136,8 +136,9 @@ int scan_keys(int argc, char *argv[], char *file_name, union u union_month, int 
 }
 
 // Считывание данных из файла
-void scan_data(struct temperature* month, FILE *f, char *file_name, int a, int y, int m, int d, int h, int mi, int t) {
+int scan_data(struct temperature* month, FILE *f, char *file_name, int a, int y, int m, int d, int h, int mi, int t) {
     _Bool check_error = false, error_text = true;
+    int error = 0;
     f = fopen(file_name, "r");
     while ((a = (fscanf(f, "%d; %d; %d; %d; %d; %d", &y, &m, &d, &h, &mi, &t))) != EOF) {
         if (a != 6) {
@@ -163,18 +164,24 @@ void scan_data(struct temperature* month, FILE *f, char *file_name, int a, int y
             month[m].count++;
         }
     }
+    if (f == NULL) { 
+        print_space();
+        printf("Can't open file %s! Please try again.\n", file_name);
+        print_space();
+        return error = 1;
+    }
     fclose(f);
 }
 
 // Вывод данных
-void print_stats(struct temperature* month, int check) {
-    if (check != 0 && check != 365) {
+void print_stats(struct temperature* month, int check, int error) {
+    if (check != 0 && check != 365 && error != 1) {
         print_space();
         printf("Stats per a choosen month\n"); 
         printf("Average = %0.2f Min = %d Max = %d Count = %ld\n", average_value(month, check), month[check].min_t, month[check].max_t, month[check].count);
         print_space();
     }
-    else if (check == 365){
+    else if (check == 365 && error != 1) {
         print_space();
         printf("Stats per each month\n");
         for (int i = 1; i <= 12; i++) {
