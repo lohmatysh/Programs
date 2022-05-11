@@ -55,8 +55,7 @@ void copy_string(char *string1, char *string2, int m, int n) {
     for (int i = 0; i < 4; i++) {
         string2[i + n] = word_Ling[i];
     }
-    for (int i = n + 4; i <= m; i++) {
-        string2[i + 1] = string1[i]; 
+    for (int i = 3; i <= m; i++) {
+        string2[i + n + 1] = string1[i + n]; 
     }
-    
 }
