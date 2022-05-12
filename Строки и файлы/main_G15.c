@@ -3,7 +3,7 @@
 #include <inttypes.h>
 
 _Bool compare_Cao(char *string1, int n);
-void copy_string(char *string1, char *string2, int m, int n, int s); 
+void copy_string(char *string1, int m, int n, int s); 
 
 char string [1001] = {0};
 char new_string [2002] = {0};
@@ -25,19 +25,15 @@ int main() {
         new_string[j] = string[j];
     }
     for (j = 0; j <= i; j++) {
-        if (string [j] == 'C') {
+        if (new_string [j] == 'C') {
             if (compare_Cao(new_string, j)) {
                 s++;
-                copy_string(string, new_string, i, j, s);
+                copy_string(new_string, i, j, s);
             }
         }
     }
-    for (k = 0; k < 1000; k++) {
-        printf("%c", new_string[k]);
-    }
-    printf("\n");
-    for (k = 0; k < 1000; k++) {
-        printf("%c", string[k]);
+    for (k = 0; k < i + s; k++) {
+        fprintf(f, "%c", new_string[k]);
     }
     fclose (f);
     return 0;  
@@ -57,12 +53,12 @@ _Bool compare_Cao(char *string1, int n) {
     return check;
 }
 
-void copy_string(char *string1, char *string2, int m, int n, int s) {
+void copy_string(char *string1, int m, int n, int s) {
     char word_Ling[4] = {'L','i','n','g'};
-    for (int i = 0; i < 4; i++) {
-        string2[i + n] = word_Ling[i];
+    for (int i = m; i >= 3 ; i--) {
+        string1[i + n + 1] = string1[i + n]; 
     }
-    for (int i = 3; i <= m; i++) {
-        string2[i + n + 1] = string1[i + n]; 
+    for (int i = 0; i < 4; i++) {
+        string1[i + n] = word_Ling[i];
     }
 }
