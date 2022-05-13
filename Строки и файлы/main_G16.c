@@ -5,7 +5,7 @@
 _Bool compare_Ling(char *string1, int n);
 void copy_string(char *string1, int m, int n); 
 
-char string [1001] = {0};
+char string [1002] = {0};
 char new_string [2002] = {0};
 char word_Cao[3] = {'C','a','o'};
 char word_Ling[4] = {'L','i','n','g'};
