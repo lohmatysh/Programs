@@ -15,7 +15,7 @@ int main() {
     }
     fclose (f);
     f = fopen("output.txt", "w");
-    for (j = i; j > 0; j--) {
+    for (j = i; j >= 0; j--) {
         if (string [j] >= '0' && string [j] <= '9') {
             current = string [j] - '0';
             if (factor > 0) {

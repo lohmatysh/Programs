@@ -28,10 +28,11 @@ int main() {
         if (new_string [j] == 'L') {
             if (compare_Ling(new_string, j)) {
                 copy_string(new_string, i, j);
+                s++;
             }
         }
     }
-    for (k = 0; k < i; k++) {
+    for (k = 0; k < i - s; k++) {
         fprintf(f, "%c", new_string[k]);
     }
     fclose (f);
