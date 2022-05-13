@@ -34,11 +34,11 @@ int main() {
             factor = 0;
             mult = 1;
         }
-    } 
-    for (int i = 0; i <= k / 2; i++) {
-        if (array_nums[i+1] < array_nums[i]) {
+    }
+    for (int i = 0; i < k / 2; i++) {
+        if (array_nums[i + 1] < array_nums[i]) {
             tmp = array_nums[i+1];
-            array_nums[i+1] = array_nums[i];
+            array_nums[i + 1] = array_nums[i];
             array_nums[i] = tmp;
         }
     }
