@@ -45,7 +45,7 @@ int main() {
         }
     }
     for (int i = 0; i < k; i++) {
-        printf("%d ", array_nums[i]);
+        fprintf(f, "%d ", array_nums[i]);
     }
     fclose (f);
     return 0;  
