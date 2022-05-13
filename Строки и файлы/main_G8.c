@@ -35,7 +35,7 @@ int main() {
             mult = 1;
         }
     }
-    for (int i = 0; i < k / 2; i++) {
+    for (int i = 0; i < k - 1; i++) {
         if (array_nums[i + 1] < array_nums[i]) {
             tmp = array_nums[i+1];
             array_nums[i + 1] = array_nums[i];
