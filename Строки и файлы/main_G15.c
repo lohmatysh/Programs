@@ -48,6 +48,7 @@ _Bool compare_Cao(char *string1, int n) {
         }
         else {
             check = false;
+            break;
         }
     }
     return check;
