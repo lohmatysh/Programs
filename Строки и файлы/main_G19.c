@@ -19,7 +19,26 @@ int main() {
     fclose (f);
     f = fopen("output.txt", "w");
     for (j = 0; j < 26; j++) {
-        printf("Num = %d Letter = %c\n", alpabet[j], ('a' + j));
+        if (alpabet[j] != 0) {
+            printf("Num = %d Letter = %c\n", alpabet[j], ('a' + j));
+        } 
+    }
+    printf("\n");
+    for (int k = 0; k < 26; k++) {
+        if (((alpabet[k] % 2) == 0) && (alpabet[k] != 0)) {
+            printf("%c", ('a' + k));
+        } 
+    }
+    for (int k = 0; k < 26; k++) {
+        if ((alpabet[k] % 2) != 0) {
+            printf("%c", ('a' + k));
+            break; 
+        }
+    }
+    for (int k = 26; k >= 0; k--) {
+        if (((alpabet[k] % 2) == 0) && (alpabet[k] != 0)) {
+            printf("%c", ('a' + k));
+        } 
     }
     fclose (f);
     return 0;  
