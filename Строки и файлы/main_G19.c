@@ -2,10 +2,12 @@
 #include <stdbool.h>
 #include <inttypes.h>
 
+void print_c (int num, int q);
+
 char string [1001] = {0};
 int alpabet[26] = {0};
 char c = 0;
-int i = 0, j = 0, k = 0, num = 0;
+int i = 0, j = 0, k = 0, num = 0, num_c = 0;
 FILE *f;
 
 int main() {
@@ -18,28 +20,28 @@ int main() {
     }
     fclose (f);
     f = fopen("output.txt", "w");
-    for (j = 0; j < 26; j++) {
-        if (alpabet[j] != 0) {
-            printf("Num = %d Letter = %c\n", alpabet[j], ('a' + j));
-        } 
-    }
-    printf("\n");
     for (int k = 0; k < 26; k++) {
-        if (((alpabet[k] % 2) == 0) && (alpabet[k] != 0)) {
-            printf("%c", ('a' + k));
-        } 
+        num_c = alpabet[k];
+        print_c(k, num_c);
     }
     for (int k = 0; k < 26; k++) {
         if ((alpabet[k] % 2) != 0) {
-            printf("%c", ('a' + k));
+            fprintf(f, "%c", ('a' + k));
             break; 
         }
     }
-    for (int k = 26; k >= 0; k--) {
-        if (((alpabet[k] % 2) == 0) && (alpabet[k] != 0)) {
-            printf("%c", ('a' + k));
-        } 
+    for (int k = 25; k >= 0; k--) {
+        num_c = alpabet[k];
+        print_c(k, num_c);
     }
     fclose (f);
     return 0;  
 }
+
+void print_c (int num, int q) {
+    if (q >= 2 || (q % 2) == 0) {
+        for (int i = 0; i < q / 2; i++) {
+            fprintf(f, "%c", ('a' + num));
+        }
+    }
+} 
