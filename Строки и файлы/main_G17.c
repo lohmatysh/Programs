@@ -28,9 +28,14 @@ int main() {
     }
     printf("\n");
     */
-    for (k = 0; k < i - 2; k +=2) {
-        //printf("Num = %d Symbol = %c\n", alpabet[k], string [alpabet[k]]);
+    if (i <= 2) {
         swap(string, alpabet, k);
+    }
+    else {
+        for (k = 0; k < i - 2; k +=2) {
+            //printf("Num = %d Symbol = %c\n", alpabet[k], string [alpabet[k]]);
+            swap(string, alpabet, k);
+        }
     }
     for (k = 0; k < i; k++) {
         fprintf(f, "%c", string[k]);
