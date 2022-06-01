@@ -20,14 +20,6 @@ int main() {
     }
     fclose (f);
     f = fopen("output.txt", "w");
-    /*
-    while (num_star >= check) {
-        
-        sum++;
-        check = check + sum;
-        printf("check %d\n", check);
-    }
-    */
     for (j = 0; j < num_star; j++) {
         if (num_star == check) {
             print_triangle(sum);
