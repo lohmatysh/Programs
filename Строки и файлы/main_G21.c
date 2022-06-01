@@ -6,7 +6,7 @@ void print_triangle(int m);
 
 char string [1001] = {0};
 char c = 0;
-int i = 0, j = 0, k = 0, num_star = 0, check = 3, sum = 2, control = 0;
+int i = 0, j = 0, k = 0, num_star = 0, check = 3, sum = 2;
 FILE *f;
 
 int main() {
