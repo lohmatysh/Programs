@@ -4,14 +4,14 @@
 
 void print_triangle(int m);
 
-char string [1001] = {0};
+char string [1002] = {0};
 char c = 0;
 int i = 0, j = 0, k = 0, num_star = 0, check = 3, sum = 2;
 FILE *f;
 
 int main() {
     f = fopen("input.txt", "r");
-    while ((c = fgetc(f)) != EOF && c != '\n') {
+    while ((c = fgetc(f)) != EOF) {
         string [i] = c;
         if (c == '*') {
             num_star++;
