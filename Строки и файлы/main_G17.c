@@ -28,11 +28,12 @@ int main() {
     }
     printf("\n");
     */
+    printf("i = %d j = %d\n", i, j);
     if (i <= 2) {
         swap(string, alpabet, k);
     }
     else {
-        for (k = 0; k < i - 2; k +=2) {
+        for (k = 0; k < j - 1; k +=2) {
             //printf("Num = %d Symbol = %c\n", alpabet[k], string [alpabet[k]]);
             swap(string, alpabet, k);
         }
