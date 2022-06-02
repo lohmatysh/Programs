@@ -18,12 +18,15 @@ int main() {
     }
     fclose (f);
     f = fopen("output.txt", "w");
+    if (num_star == 0) {
+        fprintf(f, "NO");
+    }
     for (j = 0; j < num_star; j++) {
         if (num_star == check) {
             print_triangle(sum);
             break;
         }
-        else if (num_star < check) {
+        else if (num_star < check || num_star == 0) {
             fprintf(f, "NO");
             break;
         }
