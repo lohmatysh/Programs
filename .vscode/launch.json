@@ -37,7 +37,7 @@
       "cwd": "c:/Users/DELL/Desktop/Обучение/Programs",
       "program": "c:/Users/DELL/Desktop/Обучение/Programs/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "miDebuggerPath": "C:\\Users\\DELL\\.platformio\\packages\\toolchain-atmelavr\\bin\\gdb.exe",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
