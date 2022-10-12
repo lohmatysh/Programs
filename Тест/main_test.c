@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <inttypes.h>
+
 int main(void) {
     printf("{");
     for (int i = 0; i < 1000; i +=2) {
